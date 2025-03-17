@@ -14,13 +14,12 @@ def setup_driver():
     chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument(
-        '--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
-        '(KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36'
-    )
     
-    service = Service(ChromeDriverManager().install())
+    # Spécifier explicitement le chemin vers le binaire Chromium
+    chrome_options.binary_location = "/usr/bin/chromium"
+    
+    # Spécifier une version fixe de ChromeDriver
+    service = Service(ChromeDriverManager(version="114.0.5735.90").install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
     return driver
 
